@@ -43,7 +43,7 @@ We have also successfully trained models with PyTorch 1.0, and our code is compa
 
 We also recommend using `pillow-simd` instead of `pillow` for faster image preprocessing in the dataloaders. -->
 
-##安装
+## 安装
 服务器是3090，装的CUDA是最新版本，装pytorch0.4.1后运行失败。下了pytorch==1.7.1后import torch失败，搜了下重新下了：pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
 
 
