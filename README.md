@@ -47,7 +47,8 @@ We also recommend using `pillow-simd` instead of `pillow` for faster image prepr
 服务器是3090，装的CUDA是最新版本，装pytorch0.4.1后运行失败。下了pytorch==1.7.1后import torch失败，搜了下重新下了：pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
 
 
-## 🖼️ Prediction for a single image
+
+## 🖼️ Prediction for a single image （预测单张图像）
 
 You can predict scaled disparity for a single image with:
 
@@ -81,7 +82,7 @@ You can also download models trained on the odometry split with [monocular](http
 Finally, we provide resnet 50 depth estimation models trained with [ImageNet pretrained weights](https://storage.googleapis.com/niantic-lon-static/research/monodepth2/mono_resnet50_640x192.zip) and [trained from scratch](https://storage.googleapis.com/niantic-lon-static/research/monodepth2/mono_resnet50_no_pt_640x192.zip).
 Make sure to set `--num_layers 50` if using these.
 
-## 💾 KITTI training data
+## 💾 KITTI training data （KITTI训练集）
 
 You can download the entire [raw KITTI dataset](http://www.cvlibs.net/datasets/kitti/raw_data.php) by running:
 ```shell
@@ -95,6 +96,7 @@ cd ..
 ```
 **Warning:** it weighs about **175GB**, so make sure you have enough space to unzip too!
 
+（我们的默认设置要求您使用此命令将png图像转换为jpeg，这也会删除原始KITTI png文件。）
 Our default settings expect that you have converted the png images to jpeg with this command, **which also deletes the raw KITTI `.png` files**:
 ```shell
 find kitti_data/ -name '*.png' | parallel 'convert -quality 92 -sampling-factor 2x2,1x1,1x1 {.}.png {.}.jpg && rm {}'
@@ -106,14 +108,14 @@ We found that Ubuntu 18.04 defaults to `2x2,2x2,2x2`, which gives different resu
 
 You can also place the KITTI dataset wherever you like and point towards it with the `--data_path` flag during training and evaluation.
 
-**Splits**
+**Splits** （训练/测试/验证集分割）
 
 The train/test/validation splits are defined in the `splits/` folder.
 By default, the code will train a depth model using [Zhou's subset](https://github.com/tinghuiz/SfMLearner) of the standard Eigen split of KITTI, which is designed for monocular training.
 You can also train a model using the new [benchmark split](http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_prediction) or the [odometry split](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) by setting the `--split` flag.
 
 
-**Custom dataset**
+**Custom dataset**（自定义数据集）
 
 You can train on a custom monocular or stereo dataset by writing a new dataloader class which inherits from `MonoDataset` – see the `KITTIDataset` class in `datasets/kitti_dataset.py` for an example.
 
@@ -162,7 +164,7 @@ All our experiments were performed on a single NVIDIA Titan Xp.
 
 
 
-### 💽 Finetuning a pretrained model
+### 💽 Finetuning a pretrained model（微调预训练模型）
 
 Add the following to the training command to load an existing model for finetuning:
 ```shell
